@@ -1,6 +1,8 @@
 package de.langomatisch.hetzner.internal;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import de.langomatisch.hetzner.internal.exception.HetznerNotAuthorizedException;
 
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.util.Map;
 
 public class WebRequest<T> {
 
-    private static final Gson GSON = new Gson();
+    private static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create();
 
     private static final String BASE_URL = "https://api.hetzner.cloud/v1/";
 
@@ -23,7 +25,7 @@ public class WebRequest<T> {
     private final Map<String, String> headers;
 
     public WebRequest(String subPath, String apiKey, Class<T> tClass, Map<String, String> headers) {
-        if(subPath.startsWith("/")) {
+        if (subPath.startsWith("/")) {
             subPath = subPath.substring(1);
         }
         this.subPath = subPath;
@@ -45,22 +47,28 @@ public class WebRequest<T> {
         return HttpClient.newBuilder().build();
     }
 
-    public T request() throws URISyntaxException, IOException, InterruptedException, HetznerNotAuthorizedException {
+    public T request() throws HetznerNotAuthorizedException {
         HttpClient client = getClient();
-        HttpRequest.Builder builder = HttpRequest.newBuilder().uri(new URI(BASE_URL + subPath)).GET();
-        if (apiKey != null && !apiKey.isEmpty()) {
-            builder.header("Authorization", "Bearer "+apiKey);
-        }
-        headers.forEach(builder::header);
-        HttpRequest build = builder.build();
+        HttpRequest.Builder builder = null;
+        try {
+            builder = HttpRequest.newBuilder().uri(new URI(BASE_URL + subPath)).GET();
 
-        HttpResponse<String> send = client.send(build, HttpResponse.BodyHandlers.ofString());
-        String body = send.body();
-        System.out.println(send.statusCode());
-        if(send.statusCode() == 401){
-            throw new HetznerNotAuthorizedException(body);
+            if (apiKey != null && !apiKey.isEmpty()) {
+                builder.header("Authorization", "Bearer " + apiKey);
+            }
+            headers.forEach(builder::header);
+            HttpRequest build = builder.build();
+
+            HttpResponse<String> send = null;
+            send = client.send(build, HttpResponse.BodyHandlers.ofString());
+            String body = send.body();
+            if (send.statusCode() == 401) {
+                throw new HetznerNotAuthorizedException(body);
+            }
+            return GSON.fromJson(body, tClass);
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            throw new RuntimeException(e);
         }
-        return GSON.fromJson(body, tClass);
     }
 
 

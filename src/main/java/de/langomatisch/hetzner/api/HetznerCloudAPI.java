@@ -2,12 +2,11 @@ package de.langomatisch.hetzner.api;
 
 import de.langomatisch.hetzner.internal.WebRequest;
 import de.langomatisch.hetzner.internal.exception.HetznerNotAuthorizedException;
+import de.langomatisch.hetzner.type.Datacenter;
 import de.langomatisch.hetzner.type.Datacenters;
+import de.langomatisch.hetzner.type.ServerType;
+import de.langomatisch.hetzner.type.ServerTypes;
 import de.langomatisch.hetzner.util.MapUtil;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.concurrent.CompletableFuture;
 
 public class HetznerCloudAPI {
 
@@ -23,19 +22,24 @@ public class HetznerCloudAPI {
 
     public Datacenters getDatacenters(String filter) throws HetznerNotAuthorizedException {
         WebRequest<Datacenters> request = new WebRequest<>("/datacenters", apiKey, Datacenters.class, MapUtil.asMap("name", filter));
-        try {
-            return request.request();
-        } catch (URISyntaxException | IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        return request.request();
     }
 
-    public CompletableFuture<Void> getAvailableServer() {
-        return null;
+    public Datacenter getDatacenter(String id) throws HetznerNotAuthorizedException {
+        return new WebRequest<>("/datacenter/" + id, apiKey, Datacenter.class).request();
     }
 
-    public CompletableFuture<Boolean> createServer() {
-        return null;
+    public ServerTypes getServerTypes() throws HetznerNotAuthorizedException {
+        return getServerTypes("");
     }
 
+    public ServerTypes getServerTypes(String filter) throws HetznerNotAuthorizedException {
+        WebRequest<ServerTypes> request = new WebRequest<>("/server_types", apiKey, ServerTypes.class, MapUtil.asMap("name", filter));
+        return request.request();
+    }
+
+    public ServerType getServerType(String id) throws HetznerNotAuthorizedException {
+        WebRequest<ServerType> request = new WebRequest<>("/server_types/"+id, apiKey, ServerType.class);
+        return request.request();
+    }
 }

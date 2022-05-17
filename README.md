@@ -4,7 +4,10 @@ this is a small library for the Hetzner Cloud API
 
 ### Which endpoints are done?
 
-- `/getdatacenter`
+- `/getdatacenters`
+- `/getdatacenters/{id}`
+- `/server_types`
+- `/server_types/{id}`
 
 ### How to use the API?
 
