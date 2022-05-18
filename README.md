@@ -2,12 +2,15 @@
 
 this is a small library for the Hetzner Cloud API
 
-### Which endpoints are done?
+[API Documentation](https://docs.hetzner.cloud/)
 
+### Which endpoints are done?
+(get only currently)
 - `/getdatacenters`
 - `/getdatacenters/{id}`
 - `/server_types`
 - `/server_types/{id}`
+- `/images`
 
 ### How to use the API?
 

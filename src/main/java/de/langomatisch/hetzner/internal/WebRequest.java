@@ -36,10 +36,7 @@ public class WebRequest<T> {
     }
 
     public WebRequest(String subPath, String apiKey, Class<T> tClass) {
-        this.subPath = subPath;
-        this.apiKey = apiKey;
-        this.tClass = tClass;
-        this.headers = new HashMap<>();
+        this(subPath, apiKey, tClass, new HashMap<>());
     }
 
 
@@ -52,7 +49,6 @@ public class WebRequest<T> {
         HttpRequest.Builder builder = null;
         try {
             builder = HttpRequest.newBuilder().uri(new URI(BASE_URL + subPath)).GET();
-
             if (apiKey != null && !apiKey.isEmpty()) {
                 builder.header("Authorization", "Bearer " + apiKey);
             }
@@ -64,6 +60,9 @@ public class WebRequest<T> {
             String body = send.body();
             if (send.statusCode() == 401) {
                 throw new HetznerNotAuthorizedException(body);
+            }
+            if(send.statusCode() != 200) {
+                throw new RuntimeException(body);
             }
             return GSON.fromJson(body, tClass);
         } catch (IOException | InterruptedException | URISyntaxException e) {
