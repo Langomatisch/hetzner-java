@@ -13,6 +13,8 @@ this is a small library for the Hetzner Cloud API
 - `/images`
 - `/isos`
 - `/isos/{id}`
+- `/locations`
+- `/locations/{id}`
 
 ### How to use the API?
 

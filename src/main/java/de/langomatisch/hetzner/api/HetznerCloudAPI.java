@@ -61,24 +61,26 @@ public class HetznerCloudAPI {
         return new WebRequest<>("/images", apiKey, Images.class, map).request();
     }
 
-    public Isos getIsos() {
+    public Isos getIsos() throws HetznerNotAuthorizedException {
         return getIsos("");
     }
 
-    public Isos getIsos(String filter) {
-        try {
-            return new WebRequest<>("/isos", apiKey, Isos.class, MapUtil.asMap("name", filter)).request();
-        } catch (HetznerNotAuthorizedException e) {
-            throw new RuntimeException(e);
-        }
+    public Isos getIsos(String filter) throws HetznerNotAuthorizedException {
+        return new WebRequest<>("/isos", apiKey, Isos.class, MapUtil.asMap("name", filter)).request();
     }
 
-    public Iso getIso(int id) {
-        try {
-            return new WebRequest<>("/isos", apiKey, Iso.class, MapUtil.asMap("id", String.valueOf(id))).request();
-        } catch (HetznerNotAuthorizedException e) {
-            throw new RuntimeException(e);
-        }
+    public Iso getIso(int id) throws HetznerNotAuthorizedException {
+        return new WebRequest<>("/isos/" + id, apiKey, Iso.class).request();
     }
 
+    public Locations getLocations() throws HetznerNotAuthorizedException {
+        return getLocations("");
+    }
+    public Locations getLocations(String filter) throws HetznerNotAuthorizedException {
+        return new WebRequest<>("/locations", apiKey, Locations.class, MapUtil.asMap("name", filter)).request();
+    }
+
+    public Locations getLocation(int id) throws HetznerNotAuthorizedException {
+        return new WebRequest<>("/locations/" + id, apiKey, Locations.class).request();
+    }
 }

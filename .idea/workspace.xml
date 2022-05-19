@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5566239-ba9d-4485-820a-2a758b09dab0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/langomatisch/hetzner/type/Iso.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/langomatisch/hetzner/type/Isos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/langomatisch/hetzner/type/Locations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/langomatisch/hetzner/api/HetznerCloudAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/langomatisch/hetzner/api/HetznerCloudAPI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +99,7 @@
       <updated>1652813622019</updated>
       <workItem from="1652813623367" duration="5753000" />
       <workItem from="1652856131215" duration="3285000" />
-      <workItem from="1652942417141" duration="419000" />
+      <workItem from="1652942417141" duration="1620000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1652817429193</created>
@@ -122,7 +122,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652858593793</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add iso support">
+      <created>1652943105467</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1652943105467</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update readme">
+      <created>1652943147233</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1652943147233</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,6 +157,8 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="fixed object names&#10;&#10;add ServerType endpoint" />
     <MESSAGE value="added images" />
-    <option name="LAST_COMMIT_MESSAGE" value="added images" />
+    <MESSAGE value="add iso support" />
+    <MESSAGE value="update readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme" />
   </component>
 </project>
