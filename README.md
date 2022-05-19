@@ -11,6 +11,8 @@ this is a small library for the Hetzner Cloud API
 - `/server_types`
 - `/server_types/{id}`
 - `/images`
+- `/isos`
+- `/isos/{id}`
 
 ### How to use the API?
 
