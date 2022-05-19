@@ -47,7 +47,6 @@ public class HetznerCloudAPI {
         return new WebRequest<>("/images", apiKey, Images.class).request();
     }
 
-
     public Images getImages(Image.Sort sort, Image.Type type, Image.Status status, String boundTo, boolean includesDeprecated, String name, String labelSelector) throws HetznerNotAuthorizedException {
         Map<String, String> map = new HashMap<>();
         map.put("sort", sort.getId());
@@ -60,6 +59,26 @@ public class HetznerCloudAPI {
         map.put("name", name);
         map.put("label_selector", labelSelector);
         return new WebRequest<>("/images", apiKey, Images.class, map).request();
+    }
+
+    public Isos getIsos() {
+        return getIsos("");
+    }
+
+    public Isos getIsos(String filter) {
+        try {
+            return new WebRequest<>("/isos", apiKey, Isos.class, MapUtil.asMap("name", filter)).request();
+        } catch (HetznerNotAuthorizedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Iso getIso(int id) {
+        try {
+            return new WebRequest<>("/isos", apiKey, Iso.class, MapUtil.asMap("id", String.valueOf(id))).request();
+        } catch (HetznerNotAuthorizedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
