@@ -6,6 +6,7 @@ import de.langomatisch.hetzner.type.*;
 import de.langomatisch.hetzner.util.MapUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HetznerCloudAPI {
@@ -21,8 +22,7 @@ public class HetznerCloudAPI {
     }
 
     public Datacenters getDatacenters(String filter) throws HetznerNotAuthorizedException {
-        WebRequest<Datacenters> request = new WebRequest<>("/datacenters", apiKey, Datacenters.class, MapUtil.asMap("name", filter));
-        return request.request();
+        return new WebRequest<>("/datacenters", apiKey, Datacenters.class, MapUtil.asMap("name", filter)).request();
     }
 
     public Datacenter getDatacenter(String id) throws HetznerNotAuthorizedException {
@@ -34,13 +34,11 @@ public class HetznerCloudAPI {
     }
 
     public ServerTypes getServerTypes(String filter) throws HetznerNotAuthorizedException {
-        WebRequest<ServerTypes> request = new WebRequest<>("/server_types", apiKey, ServerTypes.class, MapUtil.asMap("name", filter));
-        return request.request();
+        return new WebRequest<>("/server_types", apiKey, ServerTypes.class, MapUtil.asMap("name", filter)).request();
     }
 
     public ServerType getServerType(String id) throws HetznerNotAuthorizedException {
-        WebRequest<ServerType> request = new WebRequest<>("/server_types/" + id, apiKey, ServerType.class);
-        return request.request();
+        return new WebRequest<>("/server_types/" + id, apiKey, ServerType.class).request();
     }
 
     public Images getImages() throws HetznerNotAuthorizedException {
@@ -82,5 +80,13 @@ public class HetznerCloudAPI {
 
     public Locations getLocation(int id) throws HetznerNotAuthorizedException {
         return new WebRequest<>("/locations/" + id, apiKey, Locations.class).request();
+    }
+
+    public Servers getServers() throws HetznerNotAuthorizedException {
+        return new WebRequest<>("/servers", apiKey, Servers.class).request();
+    }
+
+    public Servers getServers(String filter) throws HetznerNotAuthorizedException {
+        return new WebRequest<>("/servers", apiKey, Servers.class).request();
     }
 }

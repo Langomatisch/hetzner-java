@@ -15,6 +15,7 @@ this is a small library for the Hetzner Cloud API
 - `/isos/{id}`
 - `/locations`
 - `/locations/{id}`
+- `/servers`
 
 ### How to use the API?
 
@@ -27,3 +28,6 @@ public static void main(String[]args){
 }
 
 ```
+
+### You can directly connect to your server using ssh keys
+
